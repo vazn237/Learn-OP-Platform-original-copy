@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Sign Up</title>
+    <link rel="stylesheet" href="style1.css">
+    <script type="module" src="script1.js"></script>
+    <script type="module" src="script7.js"></script>
+    <link rel="stylesheet" href="footers.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-wrapper login" id="signIn">
+
+            <h2>Login <span>Form</span></h2>
+            <div id="signInMessage" class="messageDiv" style="display:none;"></div>
+            <div class="input-group">
+                <label for="login-email">Email:</label>
+                <input type="email" id="login-email" name="login-email">
+            </div>
+            <div class="input-group">
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="login-password">
+            </div>
+            <button type="submit" class="btn" id="submitSignIn">Login</button>
+            <p class="switch-text">Don't have an account ? <a href="#" id="show-signup">SignUp</a></p>
+        </div>
+
+
+
+        <div class="form-wrapper signup" id="signup" style="display:none;">
+            <h2>Sign<span>Up</span></h2>
+            <div id="signUpMessage" class="messageDiv" style="display:none;"></div>
+            <div class="input-group">
+                <label for="signup-username">Username:</label>
+                <input type="text" id="signup-username" name="signup-username">
+            </div>
+            <div class="input-group">
+                <label for="signup-email">Email:</label>
+                <input type="email" id="signup-email" name="signup-email">
+            </div>
+            <div class="input-group">
+                <label for="signup-password">Password:</label>
+                <input type="password" id="signup-password" name="signup-password">
+            </div>
+            <button type="submit" class="btn" id="submitSignUp">Sign Up</button>
+            <p class="switch-text">Already have an account? <a href="#" id="show-login">Login</a></p>
+        </div>
+    </div>
+ 
+
+    <!-- Footer -->
+    
+
+    <!-- Scroll to Top Button -->
+
+
+    <script>
+        // Scroll to top functionality
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', function() {
+            const scrollTop = document.querySelector('.scroll-top');
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('show');
+            } else {
+                scrollTop.classList.remove('show');
+            }
+        });
+
+        // Newsletter form handling
+        function handleNewsletterSubmit(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('.newsletter-input').value;
+            
+            // Simulate newsletter subscription
+            const button = event.target.querySelector('.newsletter-btn');
+            const originalText = button.textContent;
+            
+            button.textContent = 'Subscribing...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.textContent = 'Subscribed! ✓';
+                button.style.background = 'linear-gradient(45deg, #28a745, #20c997)';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                    button.style.background = 'linear-gradient(45deg, #ff6b6b, #ffd93d)';
+                    event.target.reset();
+                }, 2000);
+            }, 1500);
+        }
+
+        // Add smooth hover effects to social links
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px) scale(1.1)';
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Animate elements on scroll
+        function animateOnScroll() {
+            const footer = document.querySelector('.footer');
+            const footerRect = footer.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            
+            if (footerRect.top < windowHeight && footerRect.bottom > 0) {
+                footer.classList.add('footer-visible');
+            }
+        }
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Add click effects to footer links
+        document.querySelectorAll('.footer-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                ripple.style.cssText = `
+                    position: absolute;
+                    background: rgba(255, 255, 255, 0.3);
+                    border-radius: 50%;
+                    width: 100px;
+                    height: 100px;
+                    left: ${e.clientX - this.getBoundingClientRect().left - 50}px;
+                    top: ${e.clientY - this.getBoundingClientRect().top - 50}px;
+                    animation: ripple 0.6s ease-out;
+                    pointer-events: none;
+                `;
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                0% {
+                    transform: scale(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(1);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Code4Change Footer Loaded Successfully! 🚀');
+        });
+    </script>
+
+</body>
+
+</html>

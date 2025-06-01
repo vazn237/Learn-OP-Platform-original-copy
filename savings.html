@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .payment-methods {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin: 1rem 0;
+    }
+
+    .payment-option {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1.5rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    .payment-option:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+    }
+
+    .payment-option.selected {
+        border-color: #ffd700;
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
+
+    .payment-option h4 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .payment-option p {
+        font-size: 0.9rem;
+        opacity: 0.9;
+    }
+
+    .orange-money {
+        background: linear-gradient(135deg, #ff6600 0%, #ff9933 100%);
+    }
+
+    .mobile-money {
+        background: linear-gradient(135deg, #00cc66 0%, #33dd77 100%);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .nav-links {
+        display: none;
+        }
+        
+        .hero h1 {
+        font-size: 2.5rem;
+        }
+        
+        .hero p {
+        font-size: 1.1rem;
+        }
+        
+        .dashboard-grid {
+        grid-template-columns: 1fr;
+        }
+        
+        .courses-grid {
+        grid-template-columns: 1fr;
+        }
+    }
+
+    /* Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 2000;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal.active {
+        display: flex;
+    }
+
+    .modal-content {
+        background: white;
+        padding: 2rem;
+        max-width: 500px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .close-modal {
+        float: right;
+        font-size: 2rem;
+        cursor: pointer;
+        color: #999;
+    }
+
+    /* Nkwa API Status */
+    .api-status {
+        background: linear-gradient(135deg, #00cc66 0%, #33dd77 100%);
+        color: white;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    .api-status.error {
+        background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+    }
+
+    </style>
+</head>
+<body>
+     <div class="section" id="savings">
+            <h2>Learning Savings & Startup Fund</h2>
+            <div class="savings-container">
+                <h3>Your Startup Fund</h3>
+                <div class="savings-amount" id="savings-amount">1,225,000 XAF</div>
+                <p>Keep saving while learning - your future startup awaits!</p>
+                
+                <div class="savings-goal">Goal: 2,500,000 XAF for Mobile App Startup</div>
+                <div class="savings-goal">Recommended: 5,000,000 XAF for SaaS Platform</div>
+                
+                <div class="progress-bar" style="margin-top: 2rem;">
+                    <div class="progress-fill" style="width: 49%"></div>
+                </div>
+                <p>49% to your first startup goal</p>
+                
+                <button class="btn btn-primary" onclick="showModal('addFunds')" style="margin-top: 2rem;">Add Funds</button>
+            </div>
+            
+            <div class="form-group">
+                <label>Monthly Savings Goal</label>
+                <input type="number" id="monthly-goal" placeholder="Enter amount in XAF" value="100000">
+            </div>
+            <button class="btn btn-secondary" onclick="updateSavingsGoal()">Update Goal</button>
+        </div>
+
+        
+        <script>
+             function updateSavingsGoal() {
+                    const goalAmount = document.getElementById('monthly-goal').value;
+                    if (goalAmount && goalAmount > 0) {
+                        alert(`Monthly savings goal updated to ${goalAmount}! We'll send you reminders and tips to help you reach this goal.`);
+                    }
+                }
+        
+                function addFunds(event) {
+                    event.preventDefault();
+                    const amount = parseInt(document.getElementById('fund-amount').value);
+                    if (amount && amount > 0) {
+                        currentUser.savingsAmount += amount;
+                        document.getElementById('savings-amount').textContent = currentUser.savingsAmount.toLocaleString();
+                        alert(`${amount} added successfully! Your startup fund is now ${currentUser.savingsAmount.toLocaleString()}`);
+                        
+
+        </script>
+    </body>
+</html>

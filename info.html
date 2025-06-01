@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Platform - Notification System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f9fafb;
+            color: #374151;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .navbar-brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .user-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        /* Notification Bell */
+        .notification-container {
+            position: relative;
+        }
+
+        .notification-bell {
+            position: relative;
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            color: #6b7280;
+            transition: color 0.2s;
+        }
+
+        .notification-bell:hover {
+            color: #374151;
+            background-color: #f3f4f6;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: #ef4444;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Notification Dropdown */
+        .notification-dropdown {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            margin-top: 0.5rem;
+            width: 384px;
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border: 1px solid #e5e7eb;
+            display: none;
+            z-index: 50;
+        }
+
+        .notification-dropdown.show {
+            display: block;
+        }
+
+        .notification-header {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .notification-list {
+            max-height: 384px;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            padding: 1rem;
+            border-bottom: 1px solid #f3f4f6;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            transition: background-color 0.2s;
+        }
+
+        .notification-item:hover {
+            background-color: #f9fafb;
+        }
+
+        .notification-item.unread {
+            background-color: #eff6ff;
+        }
+
+        .notification-icon {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+
+        .notification-message {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+
+        .notification-time {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+
+        .notification-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .btn-action {
+            padding: 0.25rem 0.75rem;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-action:hover {
+            background: #2563eb;
+        }
+
+        .btn-read {
+            background: none;
+            color: #3b82f6;
+            border: none;
+            font-size: 0.75rem;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .btn-close {
+            background: none;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-close:hover {
+            color: #6b7280;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 64px;
+            padding: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+        }
+
+        .dashboard-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .stat-card.blue {
+            background: #eff6ff;
+        }
+
+        .stat-card.green {
+            background: #f0fdf4;
+        }
+
+        .stat-card.purple {
+            background: #faf5ff;
+        }
+
+        .stat-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-description {
+            font-size: 0.875rem;
+        }
+
+        .blue .stat-title { color: #1e40af; }
+        .blue .stat-value { color: #2563eb; }
+        .blue .stat-description { color: #2563eb; }
+
+        .green .stat-title { color: #166534; }
+        .green .stat-value { color: #16a34a; }
+        .green .stat-description { color: #16a34a; }
+
+        .purple .stat-title { color: #7c2d12; }
+        .purple .stat-value { color: #a855f7; }
+        .purple .stat-description { color: #a855f7; }
+
+        .demo-controls {
+            border-top: 1px solid #e5e7eb;
+            padding-top: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .demo-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .demo-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-demo {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.25rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-demo.blue {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-demo.blue:hover {
+            background: #2563eb;
+        }
+
+        .btn-demo.green {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-demo.green:hover {
+            background: #059669;
+        }
+
+        .notification-rules {
+            margin-top: 2rem;
+            background: #f9fafb;
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .rules-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.75rem;
+        }
+
+        .rules-list {
+            list-style: none;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .rules-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-notifications {
+            padding: 1rem;
+            text-align: center;
+            color: #6b7280;
+        }
+
+        /* Icons using CSS */
+        .icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+        }
+
+        .icon-bell::before {
+            content: "🔔";
+            font-size: 20px;
+        }
+
+        .icon-warning::before {
+            content: "⚠️";
+            font-size: 16px;
+        }
+
+        .icon-success::before {
+            content: "💼";
+            font-size: 16px;
+        }
+
+        .icon-achievement::before {
+            content: "✅";
+            font-size: 16px;
+        }
+
+        .icon-close::before {
+            content: "✖";
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">Learning Platform</div>
+            
+            <div class="navbar-right">
+                <div class="user-stats">
+                    <span>Courses: <span id="coursesCount">4</span></span>
+                    <span>Performance: <span id="performanceScore">85</span>%</span>
+                </div>
+                
+                <div class="notification-container">
+                    <button class="notification-bell" onclick="toggleNotifications()">
+                        <span class="icon icon-bell"></span>
+                        <span class="notification-badge" id="notificationBadge">3</span>
+                    </button>
+                    
+                    <div class="notification-dropdown" id="notificationDropdown">
+                        <div class="notification-header">Notifications</div>
+                        <div class="notification-list" id="notificationList">
+                            <!-- Notifications will be populated here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="user-avatar">U</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="dashboard-card">
+            <h2 class="dashboard-title">Dashboard</h2>
+            
+            <!-- Status Cards -->
+            <div class="stats-grid">
+                <div class="stat-card blue">
+                    <div class="stat-title">Courses Completed</div>
+                    <div class="stat-value" id="dashboardCourses">4</div>
+                    <div class="stat-description" id="courseStatus">Mentor messaging disabled</div>
+                </div>
+                
+                <div class="stat-card green">
+                    <div class="stat-title">Performance Score</div>
+                    <div class="stat-value" id="dashboardPerformance">85%</div>
+                    <div class="stat-description" id="performanceStatus">Eligible for job proposals!</div>
+                </div>
+                
+                <div class="stat-card purple">
+                    <div class="stat-title">Mentor Access</div>
+                    <div class="stat-value" id="mentorStatus">Restricted</div>
+                    <div class="stat-description" id="mentorDescription">Course limit exceeded</div>
+                </div>
+            </div>
+
+            <!-- Demo Controls -->
+            <div class="demo-controls">
+                <h3 class="demo-title">Demo Controls</h3>
+                <div class="demo-buttons">
+                    <button class="btn-demo blue" onclick="completeCourse()">Complete Another Course</button>
+                    <button class="btn-demo green" onclick="updatePerformance()">Update Performance Score</button>
+                </div>
+            </div>
+
+            <!-- Notification Rules -->
+            <div class="notification-rules">
+                <h3 class="rules-title">Notification Rules</h3>
+                <ul class="rules-list">
+                    <li>• <strong>Mentor Messaging:</strong> Disabled after completing more than 3 courses</li>
+                    <li>• <strong>Job Proposals:</strong> Suggested when performance score is above 80%</li>
+                    <li>• <strong>Achievement:</strong> Unlocked when reaching 3+ completed courses</li>
+                    <li>• Notifications appear in real-time and can be marked as read or dismissed</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // User data
+        let userData = {
+            completedCourses: 4,
+            performanceScore: 85,
+            canMessageMentor: false,
+            notifications: []
+        };
+
+        let unreadCount = 0;
+        let notificationsVisible = false;
+
+        // Initialize the application
+        function init() {
+            updateNotifications();
+            updateDashboard();
+        }
+
+        // Toggle notification dropdown
+        function toggleNotifications() {
+            const dropdown = document.getElementById('notificationDropdown');
+            notificationsVisible = !notificationsVisible;
+            dropdown.classList.toggle('show', notificationsVisible);
+        }
+
+        // Close notifications when clicking outside
+        document.addEventListener('click', function(event) {
+            const container = document.querySelector('.notification-container');
+            if (!container.contains(event.target) && notificationsVisible) {
+                toggleNotifications();
+            }
+        });
+
+        // Generate notifications based on user status
+        function updateNotifications() {
+            const notifications = [];
+
+            // Course limit notification
+            if (userData.completedCourses > 3) {
+                notifications.push({
+                    id: 'mentor-limit',
+                    type: 'warning',
+                    title: 'Mentor Messaging Restricted',
+                    message: `You've completed ${userData.completedCourses} courses. Mentor messaging is no longer available.`,
+                    icon: 'icon-warning',
+                    timestamp: new Date(),
+                    read: false
+                });
+            }
+
+            // Job proposals notification
+            if (userData.performanceScore > 80) {
+                notifications.push({
+                    id: 'job-proposals',
+                    type: 'success',
+                    title: 'Job Opportunities Available!',
+                    message: `Great performance (${userData.performanceScore}%)! Check out these job proposals tailored for you.`,
+                    icon: 'icon-success',
+                    timestamp: new Date(),
+                    read: false,
+                    actionButton: 'View Jobs'
+                });
+            }
+
+            // Achievement notification
+            if (userData.completedCourses >= 3) {
+                notifications.push({
+                    id: 'achievement',
+                    type: 'info',
+                    title: 'Achievement Unlocked!',
+                    message: `Congratulations! You've completed ${userData.completedCourses} courses.`,
+                    icon: 'icon-achievement',
+                    timestamp: new Date(),
+                    read: false
+                });
+            }
+
+            userData.notifications = notifications;
+            unreadCount = notifications.filter(n => !n.read).length;
+            
+            renderNotifications();
+            updateNotificationBadge();
+        }
+
+        // Render notifications in dropdown
+        function renderNotifications() {
+            const list = document.getElementById('notificationList');
+            
+            if (userData.notifications.length === 0) {
+                list.innerHTML = '<div class="empty-notifications">No notifications</div>';
+                return;
+            }
+
+            list.innerHTML = userData.notifications.map(notification => `
+                <div class="notification-item ${!notification.read ? 'unread' : ''}" data-id="${notification.id}">
+                    <div class="notification-icon">
+                        <span class="icon ${notification.icon}"></span>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">${notification.title}</div>
+                        <div class="notification-message">${notification.message}</div>
+                        <div class="notification-time">${notification.timestamp.toLocaleTimeString()}</div>
+                        <div class="notification-actions">
+                            ${notification.actionButton ? `<button class="btn-action" onclick="handleJobProposals('${notification.id}')">${notification.actionButton}</button>` : ''}
+                            ${!notification.read ? `<button class="btn-read" onclick="markAsRead('${notification.id}')">Mark as read</button>` : ''}
+                        </div>
+                    </div>
+                    <button class="btn-close" onclick="removeNotification('${notification.id}')">
+                        <span class="icon icon-close"></span>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Update notification badge
+        function updateNotificationBadge() {
+            const badge = document.getElementById('notificationBadge');
+            if (unreadCount > 0) {
+                badge.textContent = unreadCount;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        // Mark notification as read
+        function markAsRead(notificationId) {
+            const notification = userData.notifications.find(n => n.id === notificationId);
+            if (notification && !notification.read) {
+                notification.read = true;
+                unreadCount = Math.max(0, unreadCount - 1);
+                renderNotifications();
+                updateNotificationBadge();
+            }
+        }
+
+        // Remove notification
+        function removeNotification(notificationId) {
+            const notification = userData.notifications.find(n => n.id === notificationId);
+            if (notification && !notification.read) {
+                unreadCount = Math.max(0, unreadCount - 1);
+            }
+            userData.notifications = userData.notifications.filter(n => n.id !== notificationId);
+            renderNotifications();
+            updateNotificationBadge();
+        }
+
+        // Handle job proposals
+        function handleJobProposals(notificationId) {
+            alert('Redirecting to job proposals page...');
+            markAsRead(notificationId);
+        }
+
+        // Update dashboard display
+        function updateDashboard() {
+            document.getElementById('coursesCount').textContent = userData.completedCourses;
+            document.getElementById('performanceScore').textContent = userData.performanceScore;
+            document.getElementById('dashboardCourses').textContent = userData.completedCourses;
+            document.getElementById('dashboardPerformance').textContent = userData.performanceScore + '%';
+
+            // Update course status
+            const courseStatus = document.getElementById('courseStatus');
+            if (userData.completedCourses > 3) {
+                courseStatus.textContent = 'Mentor messaging disabled';
+            } else {
+                courseStatus.textContent = `${3 - userData.completedCourses} more to limit`;
+            }
+
+            // Update performance status
+            const performanceStatus = document.getElementById('performanceStatus');
+            if (userData.performanceScore > 80) {
+                performanceStatus.textContent = 'Eligible for job proposals!';
+            } else {
+                performanceStatus.textContent = 'Keep improving!';
+            }
+
+            // Update mentor access
+            userData.canMessageMentor = userData.completedCourses <= 3;
+            const mentorStatus = document.getElementById('mentorStatus');
+            const mentorDescription = document.getElementById('mentorDescription');
+            
+            if (userData.canMessageMentor) {
+                mentorStatus.textContent = 'Available';
+                mentorDescription.textContent = 'You can message your mentor';
+            } else {
+                mentorStatus.textContent = 'Restricted';
+                mentorDescription.textContent = 'Course limit exceeded';
+            }
+        }
+
+        // Demo functions
+        function completeCourse() {
+            userData.completedCourses++;
+            updateNotifications();
+            updateDashboard();
+        }
+
+        function updatePerformance() {
+            userData.performanceScore = Math.floor(Math.random() * 40) + 60; // Random 60-100
+            updateNotifications();
+            updateDashboard();
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+     <div class="content">
+        <h1>Learn OP</h1>
+        <p>Scroll down to see the footer in action</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+        
+        <div class="footer-content">
+            <div class="footer-main">
+                <!-- About Section -->
+                <div class="footer-section">
+                    <h3>Legeng Tech</h3>
+                    <p>Empowering the next generation of tech innovators through mentorship, skill development, and real-world project opportunities.</p>
+                </div>
+
+                <!-- Focus Areas -->
+                <div class="footer-section">
+                    <h3>Focus Areas</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Courses</a></li>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Mentorship Program</a></li>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Track Progress</a></li>
+                        <li><a href="#">Dashboard</a></li>
+                    </ul>
+                </div>
+
+                <!-- Resources -->
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Expert courses</a></li>
+                        <li><a href="#">Personal Mentorship</a></li>
+                        <li><a href="#">Tech Courses Catalog</a></li>
+                        <li><a href="#">All Courses</a></li>
+                        <li><a href="#">Premium Courses</a></li>
+                       </ul>
+                </div>
+
+                <!-- Contact & Newsletter -->
+                <div class="footer-section">
+                    <h3>Stay Connected</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <span>Legeng Tech Buea, Cameroon</span>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <span>info@legendtech@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📱</div>
+                            <span>+237 682 799 852</span>
+                        </div>
+                    </div>
+                    
+                    <div class="newsletter">
+                        <h4>Get Updates</h4>
+                        <p style="font-size: 0.9rem; margin-bottom: 10px;">Subscribe to receive hackathon updates and opportunities.</p>
+                        <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+                            <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+                            <button type="submit" class="newsletter-btn">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="copyright">
+                        © Learn OP
+                    </div>
+                    <div class="footer-legal">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Code of Conduct</a>
+                        <a href="#">Open Innovation Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" onclick="scrollToTop()" title="Back to top">↑</button>
+
+    <script>
+        // Scroll to top functionality
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', function() {
+            const scrollTop = document.querySelector('.scroll-top');
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('show');
+            } else {
+                scrollTop.classList.remove('show');
+            }
+        });
+
+        // Newsletter form handling
+        function handleNewsletterSubmit(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('.newsletter-input').value;
+            
+            // Simulate newsletter subscription
+            const button = event.target.querySelector('.newsletter-btn');
+            const originalText = button.textContent;
+            
+            button.textContent = 'Subscribing...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.textContent = 'Subscribed! ✓';
+                button.style.background = 'linear-gradient(45deg, #28a745, #20c997)';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                    button.style.background = 'linear-gradient(45deg, #ff6b6b, #ffd93d)';
+                    event.target.reset();
+                }, 2000);
+            }, 1500);
+        }
+
+        // Add smooth hover effects to social links
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px) scale(1.1)';
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Animate elements on scroll
+        function animateOnScroll() {
+            const footer = document.querySelector('.footer');
+            const footerRect = footer.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            
+            if (footerRect.top < windowHeight && footerRect.bottom > 0) {
+                footer.classList.add('footer-visible');
+            }
+        }
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Add click effects to footer links
+        document.querySelectorAll('.footer-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                ripple.style.cssText = `
+                    position: absolute;
+                    background: rgba(255, 255, 255, 0.3);
+                    border-radius: 50%;
+                    width: 100px;
+                    height: 100px;
+                    left: ${e.clientX - this.getBoundingClientRect().left - 50}px;
+                    top: ${e.clientY - this.getBoundingClientRect().top - 50}px;
+                    animation: ripple 0.6s ease-out;
+                    pointer-events: none;
+                `;
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                0% {
+                    transform: scale(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(1);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Code4Change Footer Loaded Successfully! 🚀');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentorHub - Your Learning Journey Starts Here</title>
+    <link rel="stylesheet" href="footers.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: black;
+            background-color: #D3D3FF;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #4a5568;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #667eea;
+        }
+
+        .auth-section {
+            display: flex;
+            gap: 1rem;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .href{
+            text-decoration: none;
+            
+        }
+        .at{
+            
+            color: #667eea;
+        }
+        .a{
+            color: white;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .signup-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .highlight-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .highlight-card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .highlight-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .mentor-assignment {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .mentor-card {
+            display: inline-block;
+            margin: 1rem;
+            padding: 1.5rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 10px;
+            min-width: 200px;
+        }
+
+        .page-content {
+            background: white;
+            margin: 2rem 0;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .course-card {
+            border: 1px solid #e1e5e9;
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .course-card {
+            position: relative;
+        }
+
+        .course-card:hover {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .course-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .free-badge {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+        }
+
+        .premium-badge {
+            background: linear-gradient(45deg, #ffc107, #fd7e14);
+            color: white;
+        }
+
+        .course-details {
+            margin: 1rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid #e1e5e9;
+        }
+
+        .course-details p {
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .course-pricing {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .download-price {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .course-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid #667eea;
+            background: transparent;
+            color: #667eea;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .course-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal {
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            color: #aaa;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #667eea;
+        }
+
+        .project-showcase {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .project-card {
+            background: white;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .project-payment {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .payment-amount {
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .profile-section {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .profile-info {
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .visible {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .profile-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="container">
+            <!-- <img src="Authentification form/logo.jpg" alt=""> -->
+            <div class="logo">Learn-OP</div>
+            <ul class="nav-links hidden" id="navLinks">
+                <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                <li><a href="#" class="nav-link" data-page="courses">Courses</a></li>
+                <li><a href="#" class="nav-link" data-page="profile">Profile</a></li>
+                <li><a href="#" class="nav-link" data-page="mentors">Mentors</a></li>
+                <li><a href="saving.html" class="nav-link" data-page="mentors">Saving</a></li>
+            </ul>
+            <div class="auth-section" id="authSection">
+                <!-- <button class="btn-secondary" onclick="showLogin()"><a class="href at" href="index.html">Login</a></button> -->
+                <button class="btn-primary" onclick="showSignup()"><a class="href a" href="index.html">Log out</a></button>
+                <!-- <button class="btn-secondary" onclick="showLogin()">Login</button>
+                <button class="btn-primary" onclick="showSignup()">Sign Up</button> -->
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Welcome Hero Section -->
+        <section class="hero" id="welcomeHero">
+            <h1>Transform Your Future with Expert Mentorship</h1>
+            <p>Join thousands of learners who have accelerated their careers with personalized guidance</p>
+        </section>
+
+        <!-- Signup Form -->
+        <section class="signup-form" id="signupForm">
+            <h2 style="text-align: center; margin-bottom: 1.5rem; color: #667eea;">Get Started Today</h2>
+            <form onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="interests">Learning Interests</label>
+                    <input type="text" id="interests" placeholder="e.g., Web Development, Data Science, Design">
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Create Account & Get Mentor</button>
+            </form>
+        </section>
+
+        <!-- Mentor Assignment -->
+        <section class="mentor-assignment hidden" id="mentorAssignment">
+            <h2 style="color: #667eea; margin-bottom: 1rem;">🎉 Welcome to MentorHub!</h2>
+            <p>We've automatically assigned you a mentor based on your interests:</p>
+            <div class="mentor-card" id="assignedMentor">
+                <h3 id="mentorName">Dr. Sarah Chen</h3>
+                <p id="mentorExpertise">Full-Stack Development Expert</p>
+                <p id="mentorExperience">8+ years experience at Google & Meta</p>
+            </div>
+            <button class="btn-primary" onclick="completeMentorAssignment()">Continue to Dashboard</button>
+        </section>
+
+        <!-- Home Page Content -->
+        <section id="homePage" class="hidden">
+            <div class="highlights">
+                <div class="highlight-card">
+                    <h3>📚 Expert Courses</h3>
+                    <p>Access premium courses designed by industry experts to accelerate your learning journey.</p>
+                    <button class="btn-primary" onclick="showPage('courses')">View Courses</button>
+                </div>
+                <div class="highlight-card">
+                    <h3>👨‍🏫 Personal Mentorship</h3>
+                    <p>Get one-on-one guidance from experienced professionals in your field of interest.</p>
+                    <button class="btn-primary" onclick="showPage('mentors')">Meet Mentors</button>
+                </div>
+                <div class="highlight-card">
+                    <h3>📈 Track Progress</h3>
+                    <p>Monitor your learning progress and achievements with detailed analytics and insights.</p>
+                    <button class="btn-primary" onclick="showPage('profile')">View Profile</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Courses Page -->
+        <section id="coursesPage" class="page-content hidden">
+            <div class="course-header">
+                <h2 style="color: #667eea; margin-bottom: 1rem;">Tech Courses Catalog</h2>
+                <p style="margin-bottom: 2rem; color: #666;">First 3 courses are FREE! Complete courses to unlock paid
+                    projects and monetize your skills.</p>
+
+                <div class="course-filters">
+                    <button class="filter-btn active" onclick="filterCourses('all')">All Courses</button>
+                    <button class="filter-btn" onclick="filterCourses('free')">Free Courses</button>
+                    <button class="filter-btn" onclick="filterCourses('web')">Web Development</button>
+                    <button class="filter-btn" onclick="filterCourses('mobile')">Mobile Development</button>
+                    <button class="filter-btn" onclick="filterCourses('data')">Data Science</button>
+                    <button class="filter-btn" onclick="filterCourses('ai')">AI/ML</button>
+                    <button class="filter-btn" onclick="filterCourses('design')">Design</button>
+                    <button class="filter-btn" onclick="filterCourses('devops')">DevOps</button>
+                </div>
+            </div>
+
+            <div class="course-grid" id="courseGrid">
+                <!-- Free Courses (First 3) -->
+                <div class="course-card free-course" data-category="web" data-course-id="1">
+                    <div class="course-badge free-badge">FREE</div>
+                    <h3>HTML & CSS Fundamentals</h3>
+                    <p>Learn the building blocks of web development with hands-on projects.</p>
+                    <div class="course-details">
+                        <p><strong>Duration:</strong> 4 weeks</p>
+                        <p><strong>Level:</strong> Beginner</p>
+                        <p><strong>Projects:</strong> 3 paid projects available</p>
+                    </div>
+                    <div class="course-pricing">
+                        <span class="price">Free to Learn</span>
+                        <span class="download-price">Download: 2500FCFA</span>
+                    </div>
+                    <button class="btn-primary" onclick="enrollCourse(1)">Start Free Course</button>
+                </div>
+
+                <div class="course-card free-course" data-category="web" data-course-id="2">
+                    <div class="course-badge free-badge">FREE</div>
+                    <h3>JavaScript Basics</h3>
+                    <p>Master JavaScript fundamentals and DOM manipulation techniques.</p>
+                    <div class="course-details">
+                        <p><strong>Duration:</strong> 6 weeks</p>
+                        <p><strong>Level:</strong> Beginner</p>
+                        <p><strong>Projects:</strong> 4 paid projects available</p>
+                    </div>
+                    <div class="course-pricing">
+                        <span class="price">Free to Learn</span>
+                        <span class="download-price">Download: 3000FCFA</span>
+                    </div>
+                    <button class="btn-primary" onclick="enrollCourse(2)">Start Free Course</button>
+                </div>
+
+                <div class="course-card free-course" data-category="design" data-course-id="3">
+                    <div class="course-badge free-badge">FREE</div>
+                    <h3>Design Principles 101</h3>
+                    <p>Learn color theory, typography, and layout fundamentals.</p>
+                    <div class="course-details">
+                        <p><strong>Duration:</strong> 5 weeks</p>
+                        <p><strong>Level:</strong> Beginner</p>
+                        <p><strong>Projects:</strong> 3 paid projects available</p>
+                    </div>
+                    <div class="course-pricing">
+                        <span class="price">Free to Learn</span>
+                        <span class="download-price">Download: 4000FCFA</span>
+                    </div>
+                    <button class="btn-primary" onclick="enrollCourse(3)">Start Free Course</button>
+                </div>
+
+                <!-- Paid Courses -->
+                <div class="course-card paid-course" data-category="web" data-course-id="4">
+                    <div class="course-badge premium-badge">PREMIUM</div>
+                    <h3>React.js Mastery</h3>
+                    <p>Build modern single-page applications with React hooks and context.</p>
+                    <div class="course-details">
+                        <p><strong>Duration:</strong> 10 weeks</p>
+                        <p><strong>Level:</strong> Intermediate</p>
+                        <p><strong>Projects:</strong> 5 paid projects ($150-300 each)</p>
+                    </div>
+                    <div class="course-pricing">
+                        <span class="price">5000FCFA</span>
+                        <span class="download-price">Full Download: 60000FCFA</span>
+                    </div>
+                    <button class="btn-primary" onclick="enrollCourse(4)"><a href="payindex.html">Enroll
+                            Now</a></button>
+                </div>
+
+                <div class="course-card paid-course" data-category="web" data-course-id="5">
+                    <div class="course-badge premium-badge">PREMIUM</div>
+                    <h3>Node.js Backend Development</h3>
+                    <p>Create scalable server applications with Express.js and databases.</p>
+                    <div class="course-details">
+                        <p><strong>Duration:</strong> 12 weeks</p>
+                        <p><strong>Level:</strong> Intermediate</p>
+                        <p><strong>Projects:</strong> 6 paid projects (5000-7000XAF each)</p>
+                    </div>
+                    <div class="course-pricing">
+                        <span class="price">2000XAF</span>
+                        <span class="download-price">Full Download:35000XAF </span>
+                    </div>
+                    <button class="btn-primary" onclick="enrollCourse(5)"><a href="payindex.html">Enroll
+                            Now</a></button>
+                </div>
+
+                <div class="course-card paid-course" data-category="mobile" data-course-id="6">
+                    <div class="course-badge premium-badge">PREMIUM</div>
+                    <h3>React Native Mobile Apps</h3>
+                    <p>Build cross-platform mobile applications for iOS and Android.</p>
+                    <div class="course-details">
+                        <p><strong>Duration:</strong> 14 weeks</p>
+                        <p><strong>Level:</strong> Advanced</p>
+                        <p><strong>Projects:</strong> 4 paid projects (6000-7000XAF each)</p>
+                    </div>
+                    <div class="course-pricing">
+                        <span class="price">9000XAF</span>
+                        <span class="download-price">Full Download: 9000XAF</span>
+                    </div>
+                    <button class="btn-primary" onclick="enrollCourse(6)"><a href="payindex.html">Enroll
+                            Now</a></button>
+                </div>
+
+                <div class="course-card paid-course" data-category="data" data-course-id="7">
+                    <div class="course-badge premium-badge">PREMIUM</div>
+                    <h3>Python Data Analysis</h3>
+                    <p>Master pandas, NumPy, and matplotlib for data manipulation.</p>
+                    <div class="course-details">
+                        <p><strong>Duration:</strong> 11 weeks</p>
+                        <p><strong>Level:</strong> Intermediate</p>
+                        <p><strong>Projects:</strong> 5 paid projects (4000-6000XAF each)</p>
+                    </div>
+                    <div class="course-pricing">
+                        <span class="price">10000XAF</span>
+                        <span class="download-price">Full Download: 10000XAF</span>
+                    </div>
+                    <button class="btn-primary" onclick="enrollCourse(7)"><a href="payindex.html">Enroll
+                            Now</a></button>
+                </div>
+
+                <div class="course-card paid-course" data-category="ai" data-course-id="8">
+                    <div class="course-badge premium-badge">PREMIUM</div>
+                    <h3>Machine Learning with Python</h3>
+                    <p>Build predictive models using scikit-learn and TensorFlow.</p>
+                    <div class="course-details">
+                        <p><strong>Duration:</strong> 16 weeks</p>
+                        <p><strong>Level:</strong> Advanced</p>
+                        <p><strong>Projects:</strong> 6 paid projects (3000-6000XAF each)</p>
+                    </div>
+                    <div class="course-pricing">
+                        <span class="price">10000XAF</span>
+                        <span class="download-price">Full Download: 10000XAF</span>
+                    </div>
+                    <button class="btn-primary" onclick="enrollCourse(8)"><a href="payindex.html">Enroll
+                            Now</a></button>
+                </div>
+
+                <div class="course-card paid-course" data-category="design" data-course-id="9">
+                    <div class="course-badge premium-badge">PREMIUM</div>
+                    <h3>Advanced UI/UX Design</h3>
+                    <p>Create user-centered designs with Figma and design systems.</p>
+                    <div class="course-details">
+                        <p><strong>Duration:</strong> 12 weeks</p>
+                        <p><strong>Level:</strong> Intermediate</p>
+                        <p><strong>Projects:</strong> 4 paid projects (6000-7000XAF each)</p>
+                    </div>
+                    <div class="course-pricing">
+                        <span class="price">11900XAF</span>
+                        <span class="download-price">Full Download: 18900XAF</span>
+                    </div>
+                    <button class="btn-primary" onclick="enrollCourse(9)"><a href="paymindex.html">Enroll
+                            Now</a></button>
+                </div>
+
+                <div class="course-card paid-course" data-category="devops" data-course-id="10">
+                    <div class="course-badge premium-badge">PREMIUM</div>
+                    <h3>DevOps & Cloud Computing</h3>
+                    <p>Learn Docker, Kubernetes, AWS, and CI/CD pipelines.</p>
+                    <div class="course-details">
+                        <p><strong>Duration:</strong> 15 weeks</p>
+                        <p><strong>Level:</strong> Advanced</p>
+                        <p><strong>Projects:</strong> 5 paid projects (3500-7000XAF each)</p>
+                    </div>
+                    <div class="course-pricing">
+                        <span class="price">15900XAF</span>
+                        <span class="download-price">Full Download: 27900XAF</span>
+                    </div>
+                    <button class="btn-primary" onclick="enrollCourse(10)"><a href="payindex.html">Enroll
+                            Now</a></button>
+                </div>
+
+                <div class="course-card paid-course" data-category="mobile" data-course-id="11">
+                    <div class="course-badge premium-badge">PREMIUM</div>
+                    <h3>iOS Development with Swift</h3>
+                    <p>Create native iOS applications using Swift and SwiftUI.</p>
+                    <div class="course-details">
+                        <p><strong>Duration:</strong> 13 weeks</p>
+                        <p><strong>Level:</strong> Intermediate</p>
+                        <p><strong>Projects:</strong> 4 paid projects (6000-7000XAF each)</p>
+                    </div>
+                    <div class="course-pricing">
+                        <span class="price">13900XAF</span>
+                        <span class="download-price">Full Download: 21900XAF</span>
+                    </div>
+                    <button class="btn-primary" onclick="enrollCourse(11)"><a href="payindex.html">Enroll
+                            Now</a></button>
+                </div>
+
+                <div class="course-card paid-course" data-category="web" data-course-id="12">
+                    <div class="course-badge premium-badge">PREMIUM</div>
+                    <h3>Full-Stack MERN Development</h3>
+                    <p>Complete web applications with MongoDB, Express, React, and Node.js.</p>
+                    <div class="course-details">
+                        <p><strong>Duration:</strong> 18 weeks</p>
+                        <p><strong>Level:</strong> Advanced</p>
+                        <p><strong>Projects:</strong> 7 paid projects (4000-8000XAF each)</p>
+                    </div>
+                    <div class="course-pricing">
+                        <span class="price">13900XAF</span>
+                        <span class="download-price">Full Download: 21900XAF</span>
+                    </div>
+                    <button class="btn-primary" onclick="enrollCourse(12)"><a href="payindex.html">Enroll
+                            Now</a></button>
+                </div>
+            </div>
+
+            <!-- Course Detail Modal -->
+            <div class="modal hidden" id="courseModal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeCourseModal()">&times;</span>
+                    <div id="courseModalContent"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Page -->
+        <section id="profilePage" class="page-content hidden">
+            <h2 style="color: #667eea; margin-bottom: 2rem;">Your Profile</h2>
+            <div class="profile-section">
+                <div class="profile-info">
+                    <div class="profile-avatar" id="profileAvatar">JD</div>
+                    <h3 id="profileName">John Doe</h3>
+                    <p id="profileEmail">john.doe@email.com</p>
+                    <p><strong>Interests:</strong> <span id="profileInterests">Web Development</span></p>
+                    <p><strong>Member Since:</strong> <span id="memberSince">January 2025</span></p>
+                </div>
+                <div>
+                    <h3>Learning Progress</h3>
+                    <div style="margin: 1rem 0;">
+                        <p><strong>Courses Completed:</strong> 2</p>
+                        <p><strong>Courses In Progress:</strong> 1</p>
+                        <p><strong>Total Learning Hours:</strong> 45</p>
+                        <p><strong>Mentorship Sessions:</strong> 8</p>
+                    </div>
+                    <h3 style="margin-top: 2rem;">Your Mentor</h3>
+                    <div class="mentor-card" style="margin: 1rem 0;">
+                        <h4 id="profileMentorName">Dr. Sarah Chen</h4>
+                        <p id="profileMentorExpertise">Full-Stack Development Expert</p>
+                        <button class="btn-primary">Schedule Session</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mentors Page -->
+        <section id="mentorsPage" class="page-content hidden">
+            <h2 style="color: #667eea; margin-bottom: 2rem;">Our Expert Mentors</h2>
+            <div class="course-grid">
+                <div class="course-card">
+                    <h3>Dr. Sarah Chen</h3>
+                    <p><strong>Expertise:</strong> Full-Stack Development</p>
+                    <p><strong>Experience:</strong> 8+ years at Google & Meta</p>
+                    <p>Specializes in React, Node.js, and cloud architecture. Mentored 200+ developers.</p>
+                    <button class="btn-primary">View Profile</button>
+                </div>
+                <div class="course-card">
+                    <h3>Michael Rodriguez</h3>
+                    <p><strong>Expertise:</strong> Data Science & AI</p>
+                    <p><strong>Experience:</strong> 10+ years at Amazon & Netflix</p>
+                    <p>Expert in machine learning, big data, and predictive analytics.</p>
+                    <button class="btn-primary">View Profile</button>
+                </div>
+                <div class="course-card">
+                    <h3>Emily Johnson</h3>
+                    <p><strong>Expertise:</strong> UX/UI Design</p>
+                    <p><strong>Experience:</strong> 7+ years at Apple & Airbnb</p>
+                    <p>Passionate about user-centered design and design systems.</p>
+                    <button class="btn-primary">View Profile</button>
+                </div>
+                <div class="course-card">
+                    <h3>David Kim</h3>
+                    <p><strong>Expertise:</strong> Digital Marketing</p>
+                    <p><strong>Experience:</strong> 9+ years at Facebook & Shopify</p>
+                    <p>Growth hacking expert with proven track record in scaling businesses.</p>
+                    <button class="btn-primary">View Profile</button>
+                </div>
+            </div>
+        </section>
+
+        
+
+    <script>
+        let isLoggedIn = false;
+        let userData = {};
+        let currentPage = 'home';
+        let enrolledCourses = [];
+        let completedCourses = [];
+
+        const courses = {
+            1: {
+                name: "HTML & CSS Fundamentals",
+                category: "web",
+                free: true,
+                projects: [
+                    { name: "Restaurant Website", payment: 75, difficulty: "Beginner" },
+                    { name: "Portfolio Landing Page", payment: 100, difficulty: "Intermediate" },
+                    { name: "E-commerce Product Page", payment: 125, difficulty: "Intermediate" }
+                ]
+            },
+            2: {
+                name: "JavaScript Basics",
+                category: "web",
+                free: true,
+                projects: [
+                    { name: "Interactive Calculator", payment: 90, difficulty: "Beginner" },
+                    { name: "Todo List App", payment: 120, difficulty: "Intermediate" },
+                    { name: "Weather Dashboard", payment: 150, difficulty: "Intermediate" },
+                    { name: "Quiz Application", payment: 130, difficulty: "Intermediate" }
+                ]
+            },
+            3: {
+                name: "Design Principles 101",
+                category: "design",
+                free: true,
+                projects: [
+                    { name: "Brand Identity Design", payment: 200, difficulty: "Intermediate" },
+                    { name: "Mobile App Wireframes", payment: 175, difficulty: "Beginner" },
+                    { name: "Social Media Graphics", payment: 100, difficulty: "Beginner" }
+                ]
+            },
+            4: {
+                name: "React.js Mastery",
+                category: "web",
+                free: false,
+                price: 89,
+                projects: [
+                    { name: "Social Media Dashboard", payment: 250, difficulty: "Advanced" },
+                    { name: "E-commerce Frontend", payment: 350, difficulty: "Advanced" },
+                    { name: "Task Management System", payment: 200, difficulty: "Intermediate" },
+                    { name: "Real-time Chat App", payment: 300, difficulty: "Advanced" },
+                    { name: "Data Visualization Tool", payment: 275, difficulty: "Advanced" }
+                ]
+            }
+        };
+
+        function enrollCourse(courseId) {
+            if (!isLoggedIn) {
+                alert('Please sign up first to enroll in courses!');
+                return;
+            }
+
+            const course = courses[courseId];
+            if (!course) return;
+
+            if (enrolledCourses.includes(courseId)) {
+                showCourseDetails(courseId);
+                return;
+            }
+
+            if (!course.free && !userData.hasPaid) {
+                showPaymentModal(courseId);
+                return;
+            }
+
+            enrolledCourses.push(courseId);
+            alert(`Successfully enrolled in ${course.name}!`);
+            showCourseDetails(courseId);
+        }
+
+        function showCourseDetails(courseId) {
+            const course = courses[courseId];
+            if (!course) return;
+
+            const isCompleted = completedCourses.includes(courseId);
+            const projectsHtml = course.projects.map(project => `
+                <div class="project-card">
+                    <h4>${project.name}</h4>
+                    <p><strong>Difficulty:</strong> ${project.difficulty}</p>
+                    <div class="project-payment">
+                        <span class="payment-amount">Payment: ${project.payment}</span>
+                        <button class="btn-primary ${isCompleted ? '' : 'disabled'}" 
+                                onclick="${isCompleted ? `submitProject('${project.name}', ${project.payment})` : 'alert("Complete the course first!")'}"
+                                ${isCompleted ? '' : 'disabled'}>
+                            ${isCompleted ? 'Submit Project' : 'Complete Course First'}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('courseModalContent').innerHTML = `
+                <h2>${course.name}</h2>
+                <div style="margin: 2rem 0;">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        <button class="btn-primary" onclick="startLearning(${courseId})">
+                            ${enrolledCourses.includes(courseId) ? 'Continue Learning' : 'Start Learning'}
+                        </button>
+                        ${isCompleted ? '' : `
+                            <button class="btn-secondary" onclick="completeCourse(${courseId})">
+                                Mark as Complete
+                            </button>
+                        `}
+                    </div>
+                    
+                    <div class="project-showcase">
+                        <h3>Available Paid Projects</h3>
+                        <p style="color: #666; margin-bottom: 1rem;">
+                            Complete these projects after finishing the course to earn money and build your portfolio.
+                        </p>
+                        ${projectsHtml}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('courseModal').classList.remove('hidden');
+        }
+
+        function completeCourse(courseId) {
+            if (!completedCourses.includes(courseId)) {
+                completedCourses.push(courseId);
+                alert('Congratulations! Course completed. You can now submit projects for payment!');
+                showCourseDetails(courseId); // Refresh the modal
+            }
+        }
+
+        function submitProject(projectName, payment) {
+            // Simulate project submission
+            const success = Math.random() > 0.3; // 70% success rate
+
+            if (success) {
+                alert(`🎉 Project "${projectName}" submitted successfully! You earned ${payment}. Payment will be processed within 24 hours.`);
+            } else {
+                alert(`Project "${projectName}" needs revision. Please check the feedback and resubmit.`);
+            }
+        }
+
+        function startLearning(courseId) {
+            alert(`Starting course: ${courses[courseId].name}. Learning materials loading...`);
+            closeCourseModal();
+        }
+
+        function showPaymentModal(courseId) {
+            const course = courses[courseId];
+            if (confirm(`This course costs ${course.price}. Would you like to proceed with payment?`)) {
+                // Simulate payment
+                userData.hasPaid = true;
+                alert('Payment successful! You now have access to this course.');
+                enrollCourse(courseId);
+            }
+        }
+
+        function closeCourseModal() {
+            document.getElementById('courseModal').classList.add('hidden');
+        }
+
+        function filterCourses(category) {
+            const cards = document.querySelectorAll('.course-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Update active button
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Filter cards
+            cards.forEach(card => {
+                if (category === 'all') {
+                    card.style.display = 'block';
+                } else if (category === 'free') {
+                    card.style.display = card.classList.contains('free-course') ? 'block' : 'none';
+                } else {
+                    const cardCategory = card.getAttribute('data-category');
+                    card.style.display = cardCategory === category ? 'block' : 'none';
+                }
+            });
+        }
+
+        const mentors = [
+            { name: "Dr. Sarah Chen", expertise: "Full-Stack Development Expert", experience: "8+ years experience at Google & Meta" },
+            { name: "Michael Rodriguez", expertise: "Data Science & AI Expert", experience: "10+ years experience at Amazon & Netflix" },
+            { name: "Emily Johnson", expertise: "UX/UI Design Expert", experience: "7+ years experience at Apple & Airbnb" },
+            { name: "David Kim", expertise: "Digital Marketing Expert", experience: "9+ years experience at Facebook & Shopify" }
+        ];
+
+        function handleSignup(event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            userData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                interests: document.getElementById('interests').value || 'General'
+            };
+
+            // Assign random mentor
+            const randomMentor = mentors[Math.floor(Math.random() * mentors.length)];
+            userData.mentor = randomMentor;
+
+            // Show mentor assignment
+            document.getElementById('mentorName').textContent = randomMentor.name;
+            document.getElementById('mentorExpertise').textContent = randomMentor.expertise;
+            document.getElementById('mentorExperience').textContent = randomMentor.experience;
+
+            document.getElementById('signupForm').classList.add('hidden');
+            document.getElementById('mentorAssignment').classList.remove('hidden');
+        }
+
+        function completeMentorAssignment() {
+            isLoggedIn = true;
+
+            // Hide welcome sections
+            document.getElementById('welcomeHero').classList.add('hidden');
+            document.getElementById('mentorAssignment').classList.add('hidden');
+
+            // Show navigation
+            document.getElementById('navLinks').classList.remove('hidden');
+            document.getElementById('authSection').innerHTML = `
+                <span style="color: #667eea; font-weight: 500;">Welcome, ${userData.name}!</span>
+                <button class="btn-secondary" onclick="logout()">Logout</button>
+            `;
+
+            // Update profile data
+            document.getElementById('profileName').textContent = userData.name;
+            document.getElementById('profileEmail').textContent = userData.email;
+            document.getElementById('profileInterests').textContent = userData.interests;
+            document.getElementById('profileAvatar').textContent = userData.name.split(' ').map(n => n[0]).join('');
+            document.getElementById('profileMentorName').textContent = userData.mentor.name;
+            document.getElementById('profileMentorExpertise').textContent = userData.mentor.expertise;
+            document.getElementById('memberSince').textContent = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+            // Show home page
+            showPage('home');
+        }
+
+        function showPage(page) {
+            if (!isLoggedIn) return;
+
+            // Hide all pages
+            document.querySelectorAll('#homePage, #coursesPage, #profilePage, #mentorsPage').forEach(p => {
+                p.classList.add('hidden');
+            });
+
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Show selected page
+            document.getElementById(page + 'Page').classList.remove('hidden');
+
+            // Add active class to current nav link
+            document.querySelector(`[data-page="${page}"]`).classList.add('active');
+
+            currentPage = page;
+        }
+
+        function showLogin() {
+            alert('Login feature coming soon! Please sign up to get started.');
+        }
+
+        function showSignup() {
+            document.getElementById('signupForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function logout() {
+            isLoggedIn = false;
+            userData = {};
+
+            // Reset UI
+            document.getElementById('navLinks').classList.add('hidden');
+            document.getElementById('authSection').innerHTML = `
+                <button class="btn-secondary" onclick="showLogin()">Login</button>
+                <button class="btn-primary" onclick="showSignup()">Sign Up</button>
+            `;
+
+            // Show welcome sections
+            document.getElementById('welcomeHero').classList.remove('hidden');
+            document.getElementById('signupForm').classList.remove('hidden');
+
+            // Hide all pages
+            document.querySelectorAll('#homePage, #coursesPage, #profilePage, #mentorsPage, #mentorAssignment, #addFundsModal').forEach(p => {
+                p.classList.add('hidden');
+            });
+
+            // Reset form
+            document.querySelector('form').reset();
+        }
+
+        // Navigation event listeners
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const page = this.getAttribute('data-page');
+                    showPage(page);
+                });
+            });
+        });
+
+    </script>
+     <div class="content">
+        <h1>Learn OP</h1>
+        <p>Scroll down to see the footer in action</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+        
+        <div class="footer-content">
+            <div class="footer-main">
+                <!-- About Section -->
+                <div class="footer-section">
+                    <h3>Legeng Tech</h3>
+                    <p>Empowering the next generation of tech innovators through mentorship, skill development, and real-world project opportunities.</p>
+                </div>
+
+                <!-- Focus Areas -->
+                <div class="footer-section">
+                    <h3>Focus Areas</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Courses</a></li>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Mentorship Program</a></li>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Track Progress</a></li>
+                        <li><a href="#">Dashboard</a></li>
+                    </ul>
+                </div>
+
+                <!-- Resources -->
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Expert courses</a></li>
+                        <li><a href="#">Personal Mentorship</a></li>
+                        <li><a href="#">Tech Courses Catalog</a></li>
+                        <li><a href="#">All Courses</a></li>
+                        <li><a href="#">Premium Courses</a></li>
+                       </ul>
+                </div>
+
+                <!-- Contact & Newsletter -->
+                <div class="footer-section">
+                    <h3>Stay Connected</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <span>Legeng Tech Buea, Cameroon</span>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <span>info@legendtech@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📱</div>
+                            <span>+237 682 799 852</span>
+                        </div>
+                    </div>
+                    
+                    <div class="newsletter">
+                        <h4>Get Updates</h4>
+                        <p style="font-size: 0.9rem; margin-bottom: 10px;">Subscribe to receive hackathon updates and opportunities.</p>
+                        <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+                            <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+                            <button type="submit" class="newsletter-btn">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="copyright">
+                        © Learn OP
+                    </div>
+                    <div class="footer-legal">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Code of Conduct</a>
+                        <a href="#">Open Innovation Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" onclick="scrollToTop()" title="Back to top">↑</button>
+
+    <script>
+        // Scroll to top functionality
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', function() {
+            const scrollTop = document.querySelector('.scroll-top');
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('show');
+            } else {
+                scrollTop.classList.remove('show');
+            }
+        });
+
+        // Newsletter form handling
+        function handleNewsletterSubmit(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('.newsletter-input').value;
+            
+            // Simulate newsletter subscription
+            const button = event.target.querySelector('.newsletter-btn');
+            const originalText = button.textContent;
+            
+            button.textContent = 'Subscribing...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.textContent = 'Subscribed! ✓';
+                button.style.background = 'linear-gradient(45deg, #28a745, #20c997)';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                    button.style.background = 'linear-gradient(45deg, #ff6b6b, #ffd93d)';
+                    event.target.reset();
+                }, 2000);
+            }, 1500);
+        }
+
+        // Add smooth hover effects to social links
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px) scale(1.1)';
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Animate elements on scroll
+        function animateOnScroll() {
+            const footer = document.querySelector('.footer');
+            const footerRect = footer.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            
+            if (footerRect.top < windowHeight && footerRect.bottom > 0) {
+                footer.classList.add('footer-visible');
+            }
+        }
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Add click effects to footer links
+        document.querySelectorAll('.footer-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                ripple.style.cssText = `
+                    position: absolute;
+                    background: rgba(255, 255, 255, 0.3);
+                    border-radius: 50%;
+                    width: 100px;
+                    height: 100px;
+                    left: ${e.clientX - this.getBoundingClientRect().left - 50}px;
+                    top: ${e.clientY - this.getBoundingClientRect().top - 50}px;
+                    animation: ripple 0.6s ease-out;
+                    pointer-events: none;
+                `;
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                0% {
+                    transform: scale(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(1);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Code4Change Footer Loaded Successfully! 🚀');
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+body {
+    font-family: sans-serif;
+    background-color: #f0f8ff; /* Light bluish background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #D3D3FF; /* Light purple background */
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 300px; /* Adjust width as needed */
+    padding: 20px;
+}
+
+.form-wrapper {
+    padding: 15px;
+}
+
+.form-wrapper h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+    text-align: center;
+    width: 100%;
+}
+.form-wrapper h2 span {
+    color: #1008F4; /* Navy color for the title */
+}
+
+.form-wrapper h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 2px;
+    width: 30%;
+    background-color:black ;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 14px;
+}
+
+.input-group input[type="text"],
+.input-group input[type="email"],
+.input-group input[type="password"] {
+    width: calc(100% - 12px);
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: none;
+}
+
+.btn {
+    background-color: white; /* Light gray button */
+    color: #333;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #ccc;
+}
+
+.switch-text {
+    text-align: center;
+    margin-top: 20px;
+    color: black;
+    font-size: 12px;
+    display: flex;
+    flex-flow:column wrap;
+    gap: 5px;
+    font-weight: bold;
+}
+
+
+.switch-text a {
+    color: #1008F4;
+    text-decoration: underline;
+    font-weight: bold;
+    text-decoration: none;
+    
+}
+
+.switch-text a:hover {
+    text-decoration: none;
+}
+
+.signup {
+    display: none; /* Initially hide the signup form */
+}
+.messageDiv{
+    background-color:#1008F4;
+    color:white;
+    padding:10px 20px;
+    margin:10px;
+    border-radius: 5px;
+    font-size:1rem;
+    opacity:0;
+    animation:fadeOut 7s forwards;
+
+}

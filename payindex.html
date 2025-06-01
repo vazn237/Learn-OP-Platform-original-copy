@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Payment Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <form class="payment-form" id="paymentForm">
+        <h2>Payment Form</h2>
+        <div class="form-group">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" name="fullname" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Mobile Number</label>
+            <input type="tel" id="phone" name="phone" required pattern="^\+?\d{7,15}$" placeholder="+1234567890">
+        </div>
+        <div class="form-group">
+            <label>Payment Method</label>
+            <div class="payment-methods">
+                <label>
+                    <input type="radio" name="paymentMethod" value="mobileMoney" required>
+                    Mobile Money
+                </label>
+                <label>
+                    <input type="radio" name="paymentMethod" value="orangeMoney">
+                    Orange Money
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" name="amount" min="1" required>
+        </div>
+        <button type="submit">Pay Now</button>
+    </form>
+    <script src="script.js"></script>
+     <div class="content">
+        <h1>Learn OP</h1>
+        <p>Scroll down to see the footer in action</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+        
+        <div class="footer-content">
+            <div class="footer-main">
+                <!-- About Section -->
+                <div class="footer-section">
+                    <h3>Legeng Tech</h3>
+                    <p>Empowering the next generation of tech innovators through mentorship, skill development, and real-world project opportunities.</p>
+                </div>
+
+                <!-- Focus Areas -->
+                <div class="footer-section">
+                    <h3>Focus Areas</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Courses</a></li>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Mentorship Program</a></li>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Track Progress</a></li>
+                        <li><a href="#">Dashboard</a></li>
+                    </ul>
+                </div>
+
+                <!-- Resources -->
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Expert courses</a></li>
+                        <li><a href="#">Personal Mentorship</a></li>
+                        <li><a href="#">Tech Courses Catalog</a></li>
+                        <li><a href="#">All Courses</a></li>
+                        <li><a href="#">Premium Courses</a></li>
+                       </ul>
+                </div>
+
+                <!-- Contact & Newsletter -->
+                <div class="footer-section">
+                    <h3>Stay Connected</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <span>Legeng Tech Buea, Cameroon</span>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <span>info@legendtech@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📱</div>
+                            <span>+237 682 799 852</span>
+                        </div>
+                    </div>
+                    
+                    <div class="newsletter">
+                        <h4>Get Updates</h4>
+                        <p style="font-size: 0.9rem; margin-bottom: 10px;">Subscribe to receive hackathon updates and opportunities.</p>
+                        <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+                            <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+                            <button type="submit" class="newsletter-btn">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="copyright">
+                        © Learn OP
+                    </div>
+                    <div class="footer-legal">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Code of Conduct</a>
+                        <a href="#">Open Innovation Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" onclick="scrollToTop()" title="Back to top">↑</button>
+
+    <script>
+        // Scroll to top functionality
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', function() {
+            const scrollTop = document.querySelector('.scroll-top');
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('show');
+            } else {
+                scrollTop.classList.remove('show');
+            }
+        });
+
+        // Newsletter form handling
+        function handleNewsletterSubmit(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('.newsletter-input').value;
+            
+            // Simulate newsletter subscription
+            const button = event.target.querySelector('.newsletter-btn');
+            const originalText = button.textContent;
+            
+            button.textContent = 'Subscribing...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.textContent = 'Subscribed! ✓';
+                button.style.background = 'linear-gradient(45deg, #28a745, #20c997)';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                    button.style.background = 'linear-gradient(45deg, #ff6b6b, #ffd93d)';
+                    event.target.reset();
+                }, 2000);
+            }, 1500);
+        }
+
+        // Add smooth hover effects to social links
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px) scale(1.1)';
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Animate elements on scroll
+        function animateOnScroll() {
+            const footer = document.querySelector('.footer');
+            const footerRect = footer.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            
+            if (footerRect.top < windowHeight && footerRect.bottom > 0) {
+                footer.classList.add('footer-visible');
+            }
+        }
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Add click effects to footer links
+        document.querySelectorAll('.footer-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                ripple.style.cssText = `
+                    position: absolute;
+                    background: rgba(255, 255, 255, 0.3);
+                    border-radius: 50%;
+                    width: 100px;
+                    height: 100px;
+                    left: ${e.clientX - this.getBoundingClientRect().left - 50}px;
+                    top: ${e.clientY - this.getBoundingClientRect().top - 50}px;
+                    animation: ripple 0.6s ease-out;
+                    pointer-events: none;
+                `;
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                0% {
+                    transform: scale(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(1);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Code4Change Footer Loaded Successfully! 🚀');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn-op Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f5f5f5;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            padding: 60px 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .learn-op {
+            color: #4a90e2;
+            font-weight: 700;
+        }
+
+        .cards-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #c8b5ff 0%, #b8a6ff 100%);
+            border-radius: 16px;
+            padding: 30px 25px;
+            width: 220px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            scale: 1.05;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #2c3e50;
+        }
+
+        .card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #4a5568;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        /* Icons using CSS */
+        .certification-icon::before {
+            content: "🏆";
+        }
+
+        .monetization-icon::before {
+            content: "💰";
+        }
+
+        .project-icon::before {
+            content: "🔗";
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+            
+            .cards-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            
+            .card {
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            .header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>How <span class="learn-op">Learn-op</span> connects with You</h1>
+        </div>
+        
+        <div class="cards-container">
+            <div class="card" onclick="handleCardClick('certification')">
+                <div class="card-icon certification-icon"></div>
+                <h3>Certification</h3>
+                <p>Get good and reliable certificates after course completion</p>
+            </div>
+            
+            <div class="card" onclick="handleCardClick('monetization')">
+                <div class="card-icon monetization-icon"></div>
+                <h3>Monitization</h3>
+                <p>Earn and save after project completion</p>
+            </div>
+            
+            <div class="card" onclick="handleCardClick('project')">
+                <div class="card-icon project-icon"></div>
+                <h3>Project based learning</h3>
+                <p>Gain real experience by working on projects and and organisations</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleCardClick(cardType) {
+            const messages = {
+                certification: "🏆 Certification: Earn recognized certificates to validate your skills and boost your career prospects!",
+                monetization: "💰 Monetization: Turn your learning into earning opportunities through completed projects!",
+                project: "🔗 Project-based Learning: Get hands-on experience working on real projects with organizations!"
+            };
+            
+            alert(messages[cardType]);
+        }
+
+        // Add subtle animation on page load
+        window.addEventListener('load', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>
